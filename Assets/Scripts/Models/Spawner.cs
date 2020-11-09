@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
 	public GameObject[] BugPrefabs;
 	public BugsPreset[] LvlPresets;
+	public GameObject[] SticksPrefab;
 	public float StartYPostion;
 	public float SpaceBetweenLines;
 	public int AmountOfPresets;
@@ -12,6 +14,7 @@ public class Spawner : MonoBehaviour
 	public float[] RotationOfBugs;
 
 	private int[] _bugsOnLvl;
+	private int _linesPastForSticks;
 	private int _linesWrited;
 	private int _nonBugsOnLine;
 
@@ -20,7 +23,7 @@ public class Spawner : MonoBehaviour
 		_bugsOnLvl = new int[0];
 		for (int i = 0; i < AmountOfPresets; i++)
 		{
-			int SelectedPresetNum = Random.Range(0, LvlPresets.Length);
+			int SelectedPresetNum = UnityEngine.Random.Range(0, LvlPresets.Length);
 			BugsPreset Preset = LvlPresets[SelectedPresetNum];
 			Debug.Log("Spawn Preset with name :" + Preset.name);
 			int[] Temp = new int[Preset.PartsOfPreset.Length];
@@ -42,11 +45,17 @@ public class Spawner : MonoBehaviour
 					GameObject Bug = Instantiate(BugPrefabs[Preset.PartsOfPreset[j].SingleBugPreset[k].NumberOfBug], PositionOfBug, Quaternion.identity);
 					Bug.transform.Rotate(new Vector3(0, RotationOfBugs[Preset.PartsOfPreset[j].SingleBugPreset[k].PositionOfBug], 0));
 				}
+				_linesPastForSticks++;
+				if (_linesPastForSticks == 3)
+				{
+					SpawnStick();
+					_linesPastForSticks = 0;
+				}
 				StartYPostion += SpaceBetweenLines;
 			}
 
 
-			int[] BugsWrited = new int[_bugsOnLvl.Length]; 
+			int[] BugsWrited = new int[_bugsOnLvl.Length];
 			for (int j = 0; j < _bugsOnLvl.Length; j++)
 			{
 				BugsWrited[j] = _bugsOnLvl[j];
@@ -54,7 +63,7 @@ public class Spawner : MonoBehaviour
 			_bugsOnLvl = new int[BugsWrited.Length + Temp.Length];
 			for (int j = 0; j < BugsWrited.Length; j++)
 			{
-				_bugsOnLvl[j] = BugsWrited[j] ;
+				_bugsOnLvl[j] = BugsWrited[j];
 			}
 			for (int j = 0; j < Temp.Length; j++)
 			{
@@ -63,5 +72,12 @@ public class Spawner : MonoBehaviour
 			}
 		}
 		return _bugsOnLvl;
+	}
+
+	private void SpawnStick()
+	{
+		Vector3 PositionOfStick = PositonOfBugs[2];
+		PositionOfStick.y = StartYPostion;
+		Instantiate(SticksPrefab[UnityEngine.Random.Range(0, SticksPrefab.Length)], PositionOfStick, Quaternion.identity);
 	}
 }

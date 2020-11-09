@@ -12475,6 +12475,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cd14387e846cf144195453758b86a4ae, type: 2}
   - {fileID: 11400000, guid: 763b5df528add414196292cd615621b1, type: 2}
   - {fileID: 11400000, guid: 75ee56206bdb4fb4a98164d35cbd41e4, type: 2}
+  SticksPrefab:
+  - {fileID: 1203003424404821007, guid: d79f7bb9d73280c42995393e12ebc6d2, type: 3}
+  - {fileID: 1203003424404821007, guid: 2349844e5f04f444b888a56c50842da2, type: 3}
+  - {fileID: 1203003424404821007, guid: 089888df21c26d541b21a253081af893, type: 3}
+  - {fileID: 1203003424404821007, guid: c6b2a8985ba3da7468a5fb29dd20ecd1, type: 3}
+  - {fileID: 1203003424404821007, guid: 2f79a0911aa702a49bf4cef54313123f, type: 3}
+  - {fileID: 1203003424404821007, guid: 0cb8d6a6f76befb4982d598ddb44cfab, type: 3}
   StartYPostion: 0.5
   SpaceBetweenLines: 1.5
   AmountOfPresets: 4
